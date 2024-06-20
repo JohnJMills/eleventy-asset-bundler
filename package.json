@@ -1,0 +1,36 @@
+{
+  "name": "eleventy-asset-bundler",
+  "version": "1.0.0",
+  "description": "An easy to use bundler for client side JavaScript and SASS in Eleventy",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js",
+    "lint": "tsc",
+    "test": "vitest run",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "Eleventy",
+    "CSS",
+    "SASS",
+    "JavaScript",
+    "ESBuild"
+  ],
+  "author": "John J Mills",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy-utils": "^1.0.3",
+    "@types/node": "^20.14.0",
+    "esbuild": "^0.21.4",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "lodash": "^4.17.21",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
+}

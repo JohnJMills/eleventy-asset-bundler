@@ -1,11 +1,10 @@
 watch: 
 	cp package.json dist/
-	npx esbuild src/index.ts --watch --bundle --minify --format=esm --target=node20.13.1 --outfile=dist/index.js
+	npx esbuild eleventy.ts --watch --bundle --minify --format=esm --target=node20.13.1 --outfile=dist/eleventy.js
 
 build: 
 	cp package.json dist/
-	npx esbuild src/index.ts --bundle --minify --format=esm --target=node20.13.1 --outfile=dist/index.js
+	npx esbuild eleventy.ts --bundle --minify --format=esm --target=node20.13.1 --outfile=dist/eleventy.js
 
 test: 
 	npx vitest run 
-	# --config ./path/to/vitest.config.js

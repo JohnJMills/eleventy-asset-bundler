@@ -1,19 +1,22 @@
 {
   "name": "eleventy-asset-bundler",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "An easy to use bundler for client side JavaScript and SASS in Eleventy",
-  "main": "index.js",
+  "main": "eleventy.js",
   "type": "module",
+  "11ty": {
+		"compatibility": "<=3.0.0-alpha"
+	},
   "scripts": {
-    "start": "node dist/index.js",
     "lint": "tsc",
     "test": "vitest run",
     "prepare": "husky install"
   },
   "keywords": [
-    "Eleventy",
-    "CSS",
-    "SASS",
+    "eleventy",
+    "eleventy-plugin",
+    "css",
+    "sass",
     "JavaScript",
     "ESBuild"
   ],

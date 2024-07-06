@@ -5,8 +5,7 @@ import { getRegexRules } from "./src/regex-rules.js"
 import createOutputDir from "./src/createOutputDir.js"
 import path from "path"
 import buildJS from "./src/build-js.js"
-
-
+import buildSASS from "./src/build-sass.js"
 
 const DEFAULT_OPTIONS: AssetBundlerOpts = {
   rootDir: process.env.ELEVENTY_ROOT,
@@ -14,7 +13,6 @@ const DEFAULT_OPTIONS: AssetBundlerOpts = {
   jsOptions: {
     outputDir: "js",
     minify: true,
-    sourceMap: true,
   },
   bundleSASS: true,
   sassOptions: {
@@ -63,19 +61,18 @@ const assetBundler = async (eleventyConfig: any, options: AssetBundlerOpts) => {
       ),
     ]).then((res) => res.flat())
 
-    // console.log("assetList", assetList)
-
     const bundledList = await Promise.all(assetList.map(async (asset: AssetObject) => {
-      // console.log("asset", asset)
       switch (asset.fileType) {
         case ".js":
           return await buildJS(asset, jsOptions, jsOutputDir, hashOutput)
           break; 
 
         case ".css":
+          return await buildSASS(asset, sassOptions, hashOutput)
           break;
 
         case ".scss":
+          return await buildSASS(asset, sassOptions, hashOutput)
           break;
 
         default:

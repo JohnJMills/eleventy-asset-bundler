@@ -1,7 +1,7 @@
 import { expect, test } from "vitest"
 import { filterAsset, getAssetList } from "./get-asset-list.js"
 
-test("Get JS List", () => {
+test("Get JS List", async () => {
   const results = [
     {
       inputPath: "./src/home/home.md",
@@ -53,12 +53,11 @@ test("Get JS List", () => {
     },
   ]
   const rootDir = "/Users/johnmills/Sites/eleventy-asset-bundler/sample"
-  const elInputDir = "src"
   const regExRules = /(?<=src=").*.(js)(?=")/g
   const expected = [
     {
       sourcePath:
-        "/Users/johnmills/Sites/eleventy-asset-bundler/sample/src/_assets/js/main.js",
+        "/Users/johnmills/Sites/eleventy-asset-bundler/sample/_assets/js/main.js",
       fileName: "main.js",
       fileType: ".js",
       fileSlug: "main",
@@ -74,22 +73,9 @@ test("Get JS List", () => {
     },
   ]
 
-  expect(getAssetList(results, rootDir, elInputDir, regExRules)).toStrictEqual(expected)
+  await expect(getAssetList(results, rootDir, regExRules)).resolves.toStrictEqual(expected)
 })
 
-// Test an https string to not return a JS file
-
-// Test a SASS string to return multiple JS files
-
-// Test a CSS string to return a css result
-
-// Test a string with no matches to return an empty array
-
-// Test a string with multiple matches to return an array of multiple objects
-
-// Test an https css string to return no result
-
-// Test Filter
 test("Filter Found Results", () => {
   expect(filterAsset("/_assets/js/main.js")).toBe(true)
   expect(filterAsset("/_assets/js/mainjs")).toBe(false)

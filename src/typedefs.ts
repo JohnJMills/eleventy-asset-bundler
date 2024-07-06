@@ -1,9 +1,26 @@
+type AssetBundlerOpts = {
+  rootDir: string
+  bundleJS: boolean
+  jsOptions: {
+    outputDir: string
+    minify: boolean
+    plugins?: any[]
+  }
+  bundleSASS: boolean
+  sassOptions: {
+    outputDir: string
+    minify: boolean
+    sourceMap: boolean
+  }
+  hashOutput: boolean
+}
+
 type AssetObject = {
   sourcePath: string
   fileName: string
   fileType: string
   fileSlug: string
-  fileRefs: Array<FileRefs>
+  fileRefs: FileRefs[]
   hash: string
   content: string
   optimize: boolean
@@ -32,7 +49,7 @@ type EleventyAfterData = {
   runMode: string
   outputMode: string
   incremental: boolean
-  results: Array<EleventyResult>
+  results: EleventyResult[]
   uses: object
 }
 
@@ -41,5 +58,5 @@ type FileRefs = {
   refString: string // string to replace in the source file
 }
 
-export { AssetObject, EleventyResult, EleventyAfterData, FileRefs }
+export { AssetBundlerOpts, AssetObject, EleventyResult, EleventyAfterData, FileRefs }
 

@@ -3,12 +3,11 @@ import path from "path"
 function getSourcePath(
   inputPath: string,
   dirname: string,
-  elInputDir: string,
   item: string
 ): string {
   // handle absolute paths
   if (item.startsWith("/")) {
-    return path.join(dirname, elInputDir, item)
+    return path.join(dirname, item)
   }
 
   // handle paths relative to the result file

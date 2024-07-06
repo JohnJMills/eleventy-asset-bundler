@@ -6,17 +6,15 @@ test("Get Source Path", () => {
     getSourcePath(
       "",
       "/Users/johnmills/Sites/eleventy-asset-bundler/sample",
-      "src",
       "/_assets/js/main.js"
     )
   ).toBe(
-    "/Users/johnmills/Sites/eleventy-asset-bundler/sample/src/_assets/js/main.js"
+    "/Users/johnmills/Sites/eleventy-asset-bundler/sample/_assets/js/main.js"
   )
   expect(
     getSourcePath(
       "./src/home/home.md",
       "/Users/johnmills/Sites/eleventy-asset-bundler/sample",
-      "src",
       "_assets/js/main.js"
     )
   ).toBe(

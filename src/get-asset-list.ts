@@ -3,12 +3,11 @@ import getSourcePath from "./get-source-path.js"
 import getFileSlug from "./get-file-slug.js"
 import path from "path"
 
-function getAssetList(
-  results: Array<EleventyResult>,
+async function getAssetList(
+  results: EleventyResult[],
   rootDir: string,
-  elInputDir: string,
   rules: RegExp
-): Array<AssetObject> {
+): Promise<AssetObject[]> {
   return dedupeAssets(
     results.flatMap((result) => {
       const found = result.content.match(rules)
@@ -26,7 +25,6 @@ function getAssetList(
         const sourcePath = getSourcePath(
           result.inputPath,
           rootDir,
-          elInputDir,
           asset
         )
         return getAssetObject(asset, sourcePath, result.inputPath)
@@ -38,7 +36,7 @@ function getAssetList(
 /**
  * Consolidate duplicate assets into a single object
  */
-function dedupeAssets(assetList: Array<AssetObject>): Array<AssetObject> {
+function dedupeAssets(assetList: AssetObject[]): AssetObject[] {
   return assetList.reduce((assets, item) => {
     const previousMatch = assets.find(
       (asset) => item.sourcePath === asset.sourcePath
@@ -59,7 +57,7 @@ function dedupeAssets(assetList: Array<AssetObject>): Array<AssetObject> {
 /**
  * Merge 2 fileRef arrays into a single de-duped array
  */
-function mergeFileRefs(fileRefs: Array<FileRefs>, newStrings: Array<FileRefs>) {
+function mergeFileRefs(fileRefs: FileRefs[], newStrings: FileRefs[]) {
   newStrings.forEach((item) => {
     if (fileRefs.indexOf(item) === -1) {
       fileRefs.push(item)

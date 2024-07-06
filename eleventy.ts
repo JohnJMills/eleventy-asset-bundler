@@ -6,6 +6,7 @@ import createOutputDir from "./src/createOutputDir.js"
 import path from "path"
 import buildJS from "./src/build-js.js"
 import buildSASS from "./src/build-sass.js"
+import appendResults from "./src/append-to-results.js"
 
 const DEFAULT_OPTIONS: AssetBundlerOpts = {
   rootDir: process.env.ELEVENTY_ROOT,
@@ -32,10 +33,6 @@ const assetBundler = async (eleventyConfig: any, options: AssetBundlerOpts) => {
     sassOptions,
     hashOutput,
   } = _.defaultsDeep(DEFAULT_OPTIONS, options)
-
-  // console.log("root", process.env.ELEVENTY_ROOT)
-  // console.log("source", process.env.ELEVENTY_SOURCE)
-  // console.log(eleventyConfig.dir.input)
 
   eleventyConfig.on("eleventy.after", async (data: EleventyAfterData) => {
     const { dir, results } = data
@@ -81,8 +78,26 @@ const assetBundler = async (eleventyConfig: any, options: AssetBundlerOpts) => {
       }
     }))
 
-    console.log("bundledList", bundledList)
+    console.log(bundledList)
 
+    const appendOptions = {
+      results,
+      assetList: bundledList,
+      jsOutputDir,
+      jsOutputUrl: jsOptions.outputDir,
+      sassOutputDir,
+      sassOutputUrl: sassOptions.outputDir,
+    }
+
+    const allResults = await appendToResults(appendOptions)
+
+    console.log(allResults)
+
+    // updateResults = await updateAssetPaths(bundledList, allResults)
+
+    // await writeResults(updateResults, outputDir)
+
+    // completeCallback()
   })
 }
 

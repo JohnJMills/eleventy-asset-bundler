@@ -33,7 +33,7 @@ async function buildJS(
   options: JSOptions,
   outputDir: string,
   hashOutput: boolean
-) {
+): Promise<AssetObject>{
 
   const jsResult = await esbuild.build({
     entryPoints: [asset.sourcePath],
